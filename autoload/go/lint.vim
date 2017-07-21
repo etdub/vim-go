@@ -296,7 +296,7 @@ function s:lint_job(args)
       endif
     endif
 
-    if get(g:, 'go_echo_command_info', 1)
+    if ! go#util#CommandEchoInfoDisabled("golint")
       call go#util#EchoSuccess("linting finished")
     endif
   endfunction
@@ -310,7 +310,7 @@ function s:lint_job(args)
 
   call go#list#Clean(l:listtype)
 
-  if get(g:, 'go_echo_command_info', 1)
+  if ! go#util#CommandEchoInfoDisabled("golint")
     call go#util#EchoProgress("linting started ...")
   endif
 endfunction

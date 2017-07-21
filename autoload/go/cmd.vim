@@ -24,7 +24,7 @@ function! go#cmd#Build(bang, ...) abort
   let args = ["build"]  + goargs + ["-i", ".", "errors"]
 
   if go#util#has_job()
-    if get(g:, 'go_echo_command_info', 1)
+    if !go#util#CommandEchoInfoDisabled("gobuild")
       call go#util#EchoProgress("building dispatched ...")
     endif
 
@@ -34,7 +34,7 @@ function! go#cmd#Build(bang, ...) abort
           \})
     return
   elseif has('nvim')
-    if get(g:, 'go_echo_command_info', 1)
+    if !go#util#CommandEchoInfoDisabled("gobuild")
       call go#util#EchoProgress("building dispatched ...")
     endif
 
@@ -179,7 +179,7 @@ function! go#cmd#Install(bang, ...) abort
     " expand all wildcards(i.e: '%' to the current file name)
     let goargs = map(copy(a:000), "expand(v:val)")
 
-    if get(g:, 'go_echo_command_info', 1)
+    if ! go#util#CommandEchoInfoDisabled("goinstall")
       call go#util#EchoProgress("installing dispatched ...")
     endif
 

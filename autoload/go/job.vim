@@ -39,7 +39,11 @@ function go#job#Spawn(args)
       call self.error_info_cb(a:job, a:exitval, self.messages)
     endif
 
-    if get(g:, 'go_echo_command_info', 1)
+    let cmd = split(self.args[0], "/")[-1]
+    if cmd == "go"
+      let cmd = cmd . self.args[1]
+    endif
+    if ! go#util#CommandEchoInfoDisabled(cmd)
       if a:exitval == 0
         call go#util#EchoSuccess("SUCCESS")
       else

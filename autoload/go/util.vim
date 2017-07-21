@@ -291,4 +291,14 @@ function! go#util#GetLines()
   return buf
 endfunction
 
+" check if the command is in g:go_echo_commands_disabled
+function! go#util#CommandEchoInfoDisabled(cmd)
+  for c in get(g:, 'go_echo_commands_disabled', [])
+    if a:cmd == c
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
 " vim: sw=2 ts=2 et

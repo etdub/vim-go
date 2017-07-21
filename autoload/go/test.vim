@@ -31,7 +31,7 @@ function! go#test#Test(bang, compile, ...) abort
     call add(args, printf("-timeout=%s", timeout))
   endif
 
-  if get(g:, 'go_echo_command_info', 1)
+  if ! go#util#CommandEchoInfoDisabled("gotest")
     if a:compile
       echon "vim-go: " | echohl Identifier | echon "compiling tests ..." | echohl None
     else
@@ -169,7 +169,7 @@ function s:test_job(args) abort
       let status.state = "failed"
     endif
 
-    if get(g:, 'go_echo_command_info', 1)
+    if ! go#util#CommandEchoInfoDisabled("gotest")
       if a:exitval == 0
         if a:args.compile_test
           call go#util#EchoSuccess("SUCCESS")
